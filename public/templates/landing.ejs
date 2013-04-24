@@ -1,0 +1,32 @@
+    <%
+        var additionalClass = "";    
+    %>
+
+    <div id="new">
+        <form id="addNew" action="/doAddItem" method="POST">
+            <input type="text" placeholder="Add new item..." id="newItemName" name="name" />
+            <input type="submit" value="+" />
+        </form>
+    </div>
+
+    <ul id="items">
+        <% if(data.items !== null) {
+            for(var i=0; i<data.items.length; i++) {%>
+            <%
+                if(i===0) {
+                    additionalClass = "first";
+                } else if(i===data.items.length -1) {
+                    additionalClass = "last";
+                }
+            %>
+            <li class="item <%= additionalClass %>">
+                <form method="POST" action="/doDeleteItem">
+                    <span class="name"><%= data.items[i].name %></span>
+                    <input type="hidden" name="name" value="<%= data.items[i].name %>" />
+                    <span class="del">&#10005;</span>
+                </form>
+            </li>
+        <% } 
+        }   %> 
+    </ul>
+
